@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "WeatherApp"
+include ':app'
+include ':user-info'
+
+include ':user-info-data'
+project(':user-info-data').projectDir = new File('user-info/user-info-data')
+
+include ':user-info-ui'
+project(':user-info-ui').projectDir = new File('user-info/user-info-ui')
+
+include ':user-info-domain'
+project(':user-info-domain').projectDir = new File('user-info/user-info-domain')
