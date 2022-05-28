@@ -11,8 +11,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+
 }
-rootProject.name = "WeatherApp"
+rootProject.name = "ListingApp"
 include ':app'
 include ':user-info'
 
@@ -24,3 +25,4 @@ project(':user-info-ui').projectDir = new File('user-info/user-info-ui')
 
 include ':user-info-domain'
 project(':user-info-domain').projectDir = new File('user-info/user-info-domain')
+include ':core'

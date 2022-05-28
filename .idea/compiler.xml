@@ -4,7 +4,14 @@
     <bytecodeTargetLevel target="1.7">
       <module name="AndroidStudioProjects.WeatherApp.user-info-data" target="11" />
       <module name="AndroidStudioProjects.WeatherApp.user-info-ui" target="11" />
+      <module name="ListingApp.app" target="11" />
+      <module name="ListingApp.core" target="11" />
+      <module name="ListingApp.navigation" target="11" />
+      <module name="ListingApp.user-info-data" target="11" />
+      <module name="ListingApp.user-info-ui" target="11" />
       <module name="WeatherApp.app" target="11" />
+      <module name="WeatherApp.mylibrary" target="11" />
+      <module name="WeatherApp.navigation" target="11" />
       <module name="WeatherApp.user-info-data" target="11" />
       <module name="WeatherApp.user-info-ui" target="11" />
     </bytecodeTargetLevel>
