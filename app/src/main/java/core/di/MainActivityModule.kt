@@ -1,4 +1,4 @@
-package di
+package core.di
 
 import androidx.lifecycle.ViewModel
 import core.ViewModelKey

@@ -26,3 +26,4 @@ project(':user-info-ui').projectDir = new File('user-info/user-info-ui')
 include ':user-info-domain'
 project(':user-info-domain').projectDir = new File('user-info/user-info-domain')
 include ':core'
+include ':core-kotlin'

@@ -2,11 +2,14 @@ package userinfo.ui.view.splash
 
 import core.ViewModelDelegate
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.user_info_ui.R
 import com.example.user_info_ui.databinding.FragmentSplashBinding
 import core.model.ToolbarData
 import core.viewmodel.SharedViewModel
@@ -23,7 +26,7 @@ class SplashFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     override fun setToolbarData() {
-        sharedViewModel.toolbarData.value = ToolbarData(visibility = 0,title = "" )
+        sharedViewModel.toolbarData.value = ToolbarData(visibility = View.GONE,title = "" )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +52,15 @@ class SplashFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Handler().postDelayed(Runnable {
+                                       findNavController().navigate(R.id.action_splash_to_user_info_list)
+        },2000)
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
-
-
 }
