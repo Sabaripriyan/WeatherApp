@@ -6,6 +6,7 @@
       <module name="AndroidStudioProjects.WeatherApp.user-info-ui" target="11" />
       <module name="ListingApp.app" target="11" />
       <module name="ListingApp.core" target="11" />
+      <module name="ListingApp.database" target="11" />
       <module name="ListingApp.navigation" target="11" />
       <module name="ListingApp.user-info-data" target="11" />
       <module name="ListingApp.user-info-ui" target="11" />

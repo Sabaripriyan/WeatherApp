@@ -1,6 +1,7 @@
 package core.di
 
 import android.content.Context
+import app.database.di.DatabaseModule
 import base.ListingApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 
 @Component(modules = [
     AndroidSupportInjectionModule::class, CoreModule::class, RetrofitModule::class, UserInfoRepoModule::class, UserInfoApiModule::class, MainActivityModule::class,
-    SplashFragmentModule::class, UserListFragmentModule::class,UserInfoFragmentModule::class
+    SplashFragmentModule::class, UserListFragmentModule::class,UserInfoFragmentModule::class, DatabaseModule::class
 ])
 
 @Singleton
