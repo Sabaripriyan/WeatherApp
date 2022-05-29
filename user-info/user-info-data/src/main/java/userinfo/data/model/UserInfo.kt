@@ -11,7 +11,7 @@ data class UserInfo(
     val email: String? = "",
     @SerializedName("phone")
     val phone: String? = "",
-    @SerializedName("Picture")
+    @SerializedName("picture")
     val picture: Picture? = null
 
 )
