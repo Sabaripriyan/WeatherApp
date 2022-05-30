@@ -5,16 +5,15 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.user_info_ui.databinding.UserInfoRecyclerItemBinding
-import userinfo.domain.model.UserInfoData
+import userinfo.domain.model.user_info.UserInfoData
 import userinfo.ui.viewmodel.user_info.UserListViewModel
-import java.text.FieldPosition
 
 class UserInfoViewHolder(
     private val binding: UserInfoRecyclerItemBinding,
     private val context: Context
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(userInfoData: UserInfoData, viewModel: UserListViewModel,position: Int) {
+    fun bind(userInfoData: UserInfoData, viewModel: UserListViewModel, position: Int) {
         binding.setVariable(BR.viewModel,viewModel)
         binding.setVariable(BR.userInfoData,userInfoData)
         binding.executePendingBindings()

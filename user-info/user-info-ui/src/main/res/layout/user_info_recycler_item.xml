@@ -8,7 +8,7 @@
             type="userinfo.ui.viewmodel.user_info.UserListViewModel" />
         <variable
             name="userInfoData"
-            type="userinfo.domain.model.UserInfoData" />
+            type="userinfo.domain.model.user_info.UserInfoData" />
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

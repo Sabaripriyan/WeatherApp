@@ -36,6 +36,13 @@ class UserListFragment : BaseFragment() {
             ViewModelProvider(this).get(SharedViewModel::class.java)
         }?: throw Exception("Activity is null")
         setToolbarData()
+        observeViewModelLiveData()
+    }
+
+    private fun observeViewModelLiveData() {
+        userListViewModel.toolbarData.observe(this) {
+            sharedViewModel.toolbarData.value = it
+        }
     }
 
     override fun onCreateView(
@@ -57,6 +64,7 @@ class UserListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userListViewModel.getUserInfoList()
+        userListViewModel.getCurrentWeatherData()
     }
 
     fun setRecyclerAdapter(){

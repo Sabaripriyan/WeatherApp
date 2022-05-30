@@ -4,7 +4,8 @@ import android.util.Log
 import core.kotlin.Result
 import io.reactivex.Single
 import userinfo.data.repository_impl.UserInfoRepositoryImpl
-import userinfo.domain.model.UserInfoApiResponseData
+import userinfo.domain.model.user_info.UserInfoApiResponseData
+import userinfo.domain.model.weather.CurrentWeatherData
 import userinfo.domain.usecase.UserInfoUseCase
 import javax.inject.Inject
 
@@ -15,6 +16,21 @@ class UserInfoUseCaseImpl @Inject constructor(
 
     override fun getUserInfo(): Single<Result<UserInfoApiResponseData>> {
         return userInfoRepository.getUserInfo()
+            .doOnSuccess {
+                when(it) {
+                    is Result.OnSuccess -> {
+                        Log.e("Res",it.toString())
+                    }
+
+                    is Result.OnError -> {
+
+                    }
+                }
+            }
+    }
+
+    override fun getCurrentWeather(lat: String, lon: String): Single<Result<CurrentWeatherData>> {
+        return userInfoRepository.getCurrentWeather(lat,lon)
             .doOnSuccess {
                 when(it) {
                     is Result.OnSuccess -> {

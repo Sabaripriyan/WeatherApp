@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.user_info_ui.databinding.UserInfoRecyclerItemBinding
-import userinfo.domain.model.UserInfoData
+import userinfo.domain.model.user_info.UserInfoData
 import userinfo.ui.view.viewholder.UserInfoViewHolder
 import userinfo.ui.viewmodel.user_info.UserListViewModel
 import java.util.ArrayList

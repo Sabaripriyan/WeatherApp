@@ -1,4 +1,4 @@
-package userinfo.domain.model
+package userinfo.domain.model.user_info
 
 
 data class LocationData(

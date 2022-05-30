@@ -1,7 +1,7 @@
 package userinfo.data.mapper
 
-import userinfo.data.model.*
-import userinfo.domain.model.*
+import userinfo.data.model.user_info.*
+import userinfo.domain.model.user_info.*
 
 
 internal fun UserInfoApiResponse.toDomain() = UserInfoApiResponseData(

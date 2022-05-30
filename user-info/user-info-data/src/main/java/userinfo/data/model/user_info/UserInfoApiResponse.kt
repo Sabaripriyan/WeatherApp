@@ -1,4 +1,4 @@
-package userinfo.data.model
+package userinfo.data.model.user_info
 
 import com.google.gson.annotations.SerializedName
 
