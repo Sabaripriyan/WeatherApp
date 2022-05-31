@@ -5,4 +5,8 @@
     <string name="phone">Phone</string>
     <string name="lives_in">Lives In</string>
     <string name="user_details">User Detail</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="location_permission_needed">Location Permission Needed</string>
+    <string name="location_permission_necessity">Location permission needed to show weather at your location. Would like to grant it?</string>
 </resources>

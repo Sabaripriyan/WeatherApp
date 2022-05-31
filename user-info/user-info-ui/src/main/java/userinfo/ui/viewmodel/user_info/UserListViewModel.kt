@@ -1,7 +1,9 @@
 package userinfo.ui.viewmodel.user_info
 
+import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.example.user_info_ui.R
 import core.kotlin.Result
 import core.kotlin.whileSubscribed
 import core.model.ToolbarData
@@ -25,6 +27,7 @@ class UserListViewModel @Inject constructor(
     val userInfoList =  MutableLiveData<List<UserInfoData>>()
     var pageIndex = 1
     var isLoading = false
+    val removeLocationClient = MutableLiveData<Boolean>()
 
 
     fun loadMore(){
@@ -54,26 +57,27 @@ class UserListViewModel @Inject constructor(
         }
     }
 
-    fun getCurrentWeatherData() {
-        disposable += userInfoUseCase.getCurrentWeather("35","139")
+    fun getCurrentWeatherData(context:Context,lat: String, lon: String) {
+        disposable += userInfoUseCase.getCurrentWeather(lat,lon)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
-                handleCurrentWeatherData(it)
+                handleCurrentWeatherData(context,it)
             }
     }
 
-    private fun handleCurrentWeatherData(it: Result<CurrentWeatherData>?) {
+    private fun handleCurrentWeatherData(context: Context, it: Result<CurrentWeatherData>?) {
         when(it){
             is Result.OnSuccess -> {
                 toolbarData.value = ToolbarData(
-                    title = "Listing App",
+                    title = context.getString(com.example.mylibrary.R.string.app_name),
                     weatherVisibility = View.VISIBLE,
                     temperature = it.data.main?.temp?:"",
                     city = it.data.city?:"",
                     weatherDescription = it.data.weather!![0].description?:"",
                     weatherIcon = it.data.weather!![0].icon,
                 )
+                removeLocationClient.value = true
 
             }
 

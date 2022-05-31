@@ -61,5 +61,6 @@ dependencies {
     implementation project(path: ':core')
     implementation project(path: ':core-kotlin')
     implementation project(path: ':user-info-domain')
+    implementation project(path: ':database')
 
 }

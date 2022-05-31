@@ -13,7 +13,7 @@ import userinfo.domain.repository.UserInfoRepository
 import javax.inject.Inject
 
 class UserInfoRepositoryImpl @Inject constructor(
-    val webService: @JvmSuppressWildcards WebService
+    val webService: @JvmSuppressWildcards WebService,
 ): UserInfoRepository {
 
     override fun getUserInfo(page: Int): Single<Result<UserInfoApiResponseData>> {

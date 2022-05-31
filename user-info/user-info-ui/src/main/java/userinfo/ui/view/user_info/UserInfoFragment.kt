@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.user_info_ui.R
 import com.example.user_info_ui.databinding.FragmentUserInfoBinding
 import core.ViewModelDelegate
+import core.kotlin.constants.Constants
 import core.model.ToolbarData
 import core.view.BaseFragment
 import core.viewmodel.SharedViewModel
@@ -45,7 +46,7 @@ class UserInfoFragment : BaseFragment(){
 
     private fun getDataFromArguments() {
         arguments?.let {
-            userInfo = it.getSerializable("user_info") as UserInfoData
+            userInfo = it.getSerializable(Constants.USER_INFO) as UserInfoData
         }
     }
 

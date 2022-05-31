@@ -1,5 +1,6 @@
 package userinfo.data.mapper
 
+import com.google.gson.Gson
 import userinfo.data.model.user_info.*
 import userinfo.domain.model.user_info.*
 
@@ -42,3 +43,32 @@ internal fun Coordinates.toDomain() = CoordinatesData(
 internal fun Info.toDomain() = InfoData(
     results = results,
     page = page)
+
+internal fun NameData.toData() = Name(
+    first = first,
+    last = last)
+
+internal fun LocationData.toData() = Location(
+    city = city,
+    state = state,
+    country = country,
+    coordinates = coordinates?.toData()
+)
+
+internal fun PictureData.toData() = Picture(
+    medium = medium,
+    large = large,
+    thumbnail = thumbnail
+)
+
+internal fun CoordinatesData.toData() = Coordinates(
+    latitude = latitude,
+    longitude = longitude)
+
+internal fun UserInfoData.toDB() = app.database.table.UserInfo(
+    name = Gson().toJson(name),
+    location = Gson().toJson(location),
+    email = email?:"",
+    phone = phone?:"",
+    picture = Gson().toJson(picture)
+)

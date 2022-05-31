@@ -9,5 +9,5 @@ import app.database.table.UserInfo
 abstract class UserInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insertUserInfo(userInfo: UserInfo): Long
+    abstract fun insertUserInfo(userInfoList: List<UserInfo>)
 }

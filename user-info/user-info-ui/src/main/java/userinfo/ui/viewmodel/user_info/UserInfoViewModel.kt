@@ -3,6 +3,7 @@ package userinfo.ui.viewmodel.user_info
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import core.kotlin.Result
 import core.kotlin.whileSubscribed
 import core.model.ToolbarData
@@ -42,7 +43,6 @@ class UserInfoViewModel @Inject constructor(
     private fun handleCurrentWeatherData(it: Result<CurrentWeatherData>?) {
         when(it){
             is Result.OnSuccess -> {
-                Log.e("weather",it.data.toString())
                 setWeatherData(it.data)
             }
 
