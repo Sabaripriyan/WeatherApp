@@ -2,5 +2,6 @@ package userinfo.domain.model.user_info
 
 
 data class UserInfoApiResponseData(
-    val results: List<UserInfoData>?
+    val results: List<UserInfoData>?,
+    val info: InfoData?
 )

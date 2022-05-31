@@ -16,15 +16,19 @@ class UserInfoRepositoryImpl @Inject constructor(
     val webService: @JvmSuppressWildcards WebService
 ): UserInfoRepository {
 
-    override fun getUserInfo(): Single<Result<UserInfoApiResponseData>> {
+    override fun getUserInfo(page: Int): Single<Result<UserInfoApiResponseData>> {
         return Single.fromCallable {
-          callUserInfoApi().blockingGet()
+          callUserInfoApi(page).blockingGet()
         }
     }
 
-    private fun callUserInfoApi(): Single<Result<UserInfoApiResponseData>>{
+    private fun callUserInfoApi(page: Int): Single<Result<UserInfoApiResponseData>>{
         return  webService.getUserInfo(
-            url = ApiUrls.userInfoApiUrl,
+            ApiUrls.userInfoApiUrl,
+            mapOf(
+                "results" to "25",
+                "page" to "$page"
+            ),
         ).doOnSuccess {  }
             .map {
                 Result.withValue(it.toDomain())

@@ -13,6 +13,7 @@ interface WebService {
     @GET
     fun getUserInfo(
         @Url url: String,
+        @QueryMap map: Map<String, String>,
         ): Single<UserInfoApiResponse>
 
     @GET

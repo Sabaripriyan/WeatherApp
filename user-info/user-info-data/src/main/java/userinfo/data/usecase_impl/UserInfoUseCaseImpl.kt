@@ -14,8 +14,8 @@ class UserInfoUseCaseImpl @Inject constructor(
     private val userInfoRepository: UserInfoRepositoryImpl
 ): UserInfoUseCase {
 
-    override fun getUserInfo(): Single<Result<UserInfoApiResponseData>> {
-        return userInfoRepository.getUserInfo()
+    override fun getUserInfo(page: Int): Single<Result<UserInfoApiResponseData>> {
+        return userInfoRepository.getUserInfo(page)
             .doOnSuccess {
                 when(it) {
                     is Result.OnSuccess -> {

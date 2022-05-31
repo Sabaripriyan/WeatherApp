@@ -7,7 +7,7 @@ import userinfo.domain.model.weather.CurrentWeatherData
 
 interface UserInfoUseCase {
 
-    fun getUserInfo(): Single<Result<UserInfoApiResponseData>>
+    fun getUserInfo(page: Int): Single<Result<UserInfoApiResponseData>>
 
     fun getCurrentWeather(lat: String, lon: String): Single<Result<CurrentWeatherData>>
 }

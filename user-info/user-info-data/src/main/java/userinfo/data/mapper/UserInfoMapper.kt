@@ -5,7 +5,8 @@ import userinfo.domain.model.user_info.*
 
 
 internal fun UserInfoApiResponse.toDomain() = UserInfoApiResponseData(
-    results = results?.map { it.toDomain() }
+    results = results?.map { it.toDomain() },
+    info = info?.toDomain()
 )
 
 internal fun UserInfo.toDomain() = UserInfoData(
@@ -37,3 +38,7 @@ internal fun Coordinates.toDomain() = CoordinatesData(
     latitude = latitude,
     longitude = longitude
 )
+
+internal fun Info.toDomain() = InfoData(
+    results = results,
+    page = page)

@@ -24,7 +24,7 @@ class UserListViewModel @Inject constructor(
     val toolbarData = MutableLiveData<ToolbarData>()
 
     fun getUserInfoList() {
-        disposable += userInfoUseCase.getUserInfo()
+        disposable += userInfoUseCase.getUserInfo(1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
