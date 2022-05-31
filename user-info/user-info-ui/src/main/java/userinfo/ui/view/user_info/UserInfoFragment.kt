@@ -1,60 +1,108 @@
 package userinfo.ui.view.user_info
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.user_info_ui.R
+import com.example.user_info_ui.databinding.FragmentUserInfoBinding
+import core.ViewModelDelegate
+import core.model.ToolbarData
+import core.view.BaseFragment
+import core.viewmodel.SharedViewModel
+import userinfo.domain.model.user_info.UserInfoData
+import userinfo.ui.viewmodel.user_info.UserInfoViewModel
+import java.lang.Exception
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class UserInfoFragment : BaseFragment(){
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UserInfoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class UserInfoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var sharedViewModel: SharedViewModel
+    private val userInfoViewModel: UserInfoViewModel by ViewModelDelegate()
+    private var _binding: com.example.user_info_ui.databinding.FragmentUserInfoBinding? = null
+    private val binding get() = _binding!!
+    lateinit var userInfo: UserInfoData
+
+
+
+    override fun setToolbarData() {
+        sharedViewModel.toolbarData.value = ToolbarData(visibility = View.VISIBLE,title = getString(
+            com.example.mylibrary.R.string.user_details
+        ) )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedViewModel = activity?.run {
+            ViewModelProvider(this).get(SharedViewModel::class.java)
+        }?: throw Exception("Activity is null")
+        setToolbarData()
+        getDataFromArguments()
+    }
+
+    private fun getDataFromArguments() {
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            userInfo = it.getSerializable("user_info") as UserInfoData
+        }
+    }
+
+    private fun setUserData(userInfo: UserInfoData) {
+        userInfo.apply {
+            userInfoViewModel.userImageUrl.set(userInfo.picture?.large)
+            userInfoViewModel.userName.set(this.name?.run {
+                "${this.first?:""} ${this.last?:""}"
+            })
+            userInfoViewModel.email.set(this.email)
+            userInfoViewModel.phone.set(this.phone)
+            this.location?.let {
+                userInfoViewModel.cityAndState.set(it.run {
+                    "${this.city}, ${this.state}"
+                })
+                userInfoViewModel.country.set(it.country?:"")
+            }
+        }
+
+    }
+
+    private fun observeViewModelLiveData() {
+        userInfoViewModel.showProgress.observe(viewLifecycleOwner) { isLoading ->
+            if(isLoading == true)
+                showLoader()
+            else
+                hideLoader()
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_info, container, false)
+        _binding = FragmentUserInfoBinding.inflate(
+            inflater
+        ).also {
+            it.viewModel = userInfoViewModel
+            it.lifecycleOwner = viewLifecycleOwner
+        }
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        observeViewModelLiveData()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserInfoFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserInfoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUserData(userInfo)
+        userInfo.location?.coordinates?.let {
+            userInfoViewModel.getCurrentWeatherData(it.latitude!!,it.longitude!!)
+        }
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
 }

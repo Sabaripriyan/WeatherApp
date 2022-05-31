@@ -13,28 +13,35 @@ abstract class BaseFragment: DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var dialog: Dialog
+   var dialog: Dialog? = null
 
     abstract fun setToolbarData()
 
     fun showLoader() {
-        if(!dialog.isShowing)
-            createLoader()
+        hideLoader()
+        createLoader()
+    }
+
+    fun isLoading(): Boolean {
+        if(dialog!=null)
+            return dialog!!.isShowing
+        else
+            return false
     }
 
     fun hideLoader() {
-        if(dialog.isShowing)
-            dialog.cancel()
+        if(isLoading())
+            dialog?.cancel()
     }
 
     private fun createLoader(): Dialog{
         dialog = Dialog(requireActivity(), android.R.style.Theme_Black)
         val view = LayoutInflater.from(requireActivity()).inflate(R.layout.layout_progress_dialog,null)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.setContentView(view)
-        dialog.setCancelable(false)
-        dialog.show()
-        return dialog
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.setContentView(view)
+        dialog?.setCancelable(false)
+        dialog?.show()
+        return dialog as Dialog
     }
 }

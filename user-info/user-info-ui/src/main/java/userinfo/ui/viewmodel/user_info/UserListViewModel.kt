@@ -1,9 +1,9 @@
 package userinfo.ui.viewmodel.user_info
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import core.kotlin.Result
+import core.kotlin.whileSubscribed
 import core.model.ToolbarData
 import core.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,21 +11,31 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import userinfo.domain.model.user_info.UserInfoApiResponseData
+import userinfo.domain.model.user_info.UserInfoData
 import userinfo.domain.model.weather.CurrentWeatherData
 import userinfo.domain.usecase.UserInfoUseCase
-import userinfo.ui.view.adapter.UserListAdapter
 import javax.inject.Inject
 
 class UserListViewModel @Inject constructor(
     private val userInfoUseCase: UserInfoUseCase
 ): BaseViewModel() {
 
-    lateinit var userListAdapter: UserListAdapter
-    val toolbarData = MutableLiveData<ToolbarData>()
 
-    fun getUserInfoList() {
-        disposable += userInfoUseCase.getUserInfo(1)
+    val toolbarData = MutableLiveData<ToolbarData>()
+    val userInfoList =  MutableLiveData<List<UserInfoData>>()
+    var pageIndex = 1
+    var isLoading = false
+
+
+    fun loadMore(){
+        pageIndex++
+        getUserInfoList()
+        isLoading = true
+    }
+    fun getUserInfoList(isFirstCall: Boolean = false) {
+        disposable += userInfoUseCase.getUserInfo(pageIndex)
             .subscribeOn(Schedulers.io())
+            .whileSubscribed { showProgress.postValue(isFirstCall&&it) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
                 handleUserInfo(it)
@@ -35,7 +45,8 @@ class UserListViewModel @Inject constructor(
     private fun handleUserInfo(it: Result<UserInfoApiResponseData>?) {
         when(it){
             is Result.OnSuccess -> {
-                userListAdapter.updateList(it.data.results?: emptyList())
+                userInfoList.postValue(it.data.results?: emptyList())
+                isLoading = false
             }
 
             is Result.OnError -> {

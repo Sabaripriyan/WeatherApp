@@ -17,7 +17,10 @@
     <fragment
         android:id="@+id/fragment_user_info_list"
         android:name="userinfo.ui.view.user_info.UserListFragment">
-
+        <action android:id="@+id/action_user_list_to_user_info"
+            app:destination="@id/fragment_user_info"/>
     </fragment>
-
+    <fragment
+        android:id="@+id/fragment_user_info"
+        android:name="userinfo.ui.view.user_info.UserInfoFragment"/>
 </navigation>

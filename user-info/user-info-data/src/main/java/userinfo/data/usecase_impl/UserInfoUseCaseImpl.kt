@@ -19,7 +19,7 @@ class UserInfoUseCaseImpl @Inject constructor(
             .doOnSuccess {
                 when(it) {
                     is Result.OnSuccess -> {
-                        Log.e("Res",it.toString())
+
                     }
 
                     is Result.OnError -> {
@@ -34,7 +34,7 @@ class UserInfoUseCaseImpl @Inject constructor(
             .doOnSuccess {
                 when(it) {
                     is Result.OnSuccess -> {
-                        Log.e("Res",it.toString())
+
                     }
 
                     is Result.OnError -> {

@@ -1,13 +1,204 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="userinfo.ui.viewmodel.user_info.UserInfoViewModel" />
+        <import type="android.view.View"/>
+    </data>
+<ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:paddingBottom="32dp"
+    android:clipToPadding="false"
+    android:background="#ffff"
     tools:context="userinfo.ui.view.user_info.UserInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:imageUrl="@{viewModel.userImageUrl}"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.userName}"
+        android:paddingVertical="8dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="8dp"
+        android:textColor="#ffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:background="@drawable/vertical_gradient_black"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textEmailLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/email"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/margin_right"
+        app:layout_constraintStart_toStartOf="@+id/margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/margin_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <TextView
+        android:id="@+id/textEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@{viewModel.email}"
+        app:layout_constraintEnd_toStartOf="@+id/margin_right"
+        app:layout_constraintStart_toStartOf="@+id/margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/textEmailLabel" />
+
+    <TextView
+        android:id="@+id/textPhoneLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/phone"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/margin_right"
+        app:layout_constraintStart_toStartOf="@+id/margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/textEmail" />
+
+    <TextView
+        android:id="@+id/textPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@{viewModel.phone}"
+        app:layout_constraintEnd_toEndOf="@+id/textPhoneLabel"
+        app:layout_constraintStart_toStartOf="@+id/margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/textPhoneLabel" />
+
+    <TextView
+        android:id="@+id/textLivesInLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/lives_in"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/margin_right"
+        app:layout_constraintStart_toStartOf="@+id/margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/textPhoneNumber" />
+
+    <TextView
+        android:id="@+id/textCityAndState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@{viewModel.cityAndState}"
+        app:layout_constraintEnd_toStartOf="@+id/margin_right"
+        app:layout_constraintStart_toStartOf="@+id/margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/textLivesInLabel" />
+
+    <TextView
+        android:id="@+id/textCountry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@{viewModel.country}"
+        app:layout_constraintEnd_toStartOf="@+id/margin_right"
+        app:layout_constraintStart_toStartOf="@+id/margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/textCityAndState" />
+<androidx.cardview.widget.CardView
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:minHeight="200dp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginStart="50dp"
+    android:layout_marginTop="32dp"
+    android:layout_marginEnd="50dp"
+    app:cardBackgroundColor="@color/teal_200"
+    android:elevation="5dp"
+    app:layout_constraintEnd_toStartOf="@+id/margin_right"
+    app:layout_constraintStart_toStartOf="@+id/margin_left"
+    app:layout_constraintTop_toBottomOf="@+id/textCountry">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageWeather"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:imageUrl="@{viewModel.weatherIconUrl}"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textTemperature"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.temperature}"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageWeather" />
+
+        <TextView
+            android:id="@+id/textWeatherDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="16dp"
+            android:gravity="center_horizontal"
+            android:text="@{viewModel.weatherDescription}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTemperature" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+</layout>
