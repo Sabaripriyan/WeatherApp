@@ -9,9 +9,11 @@ import android.location.LocationRequest
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
@@ -30,6 +32,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import core.ViewModelDelegate
+import core.custom_views.CustomSearchView
 import core.extensions.showAlert
 import core.kotlin.constants.Constants.USER_INFO
 import core.kotlin.constants.Constants.USER_LIST_VISIBLE_THRESHOLD
@@ -70,9 +73,14 @@ class UserListFragment : BaseFragment(), UserListAdapter.OnUserInfoClicked, Base
         }
 
         userListViewModel.userInfoList.observe(viewLifecycleOwner){
-            if(userListViewModel.pageIndex != 1)
+            if(userListViewModel.pageIndex != 1){
                 userListAdapter.removeProgress()
-            userListAdapter.updateList(it)
+                userListAdapter.updateList(it,false)
+            }
+            else {
+                userListAdapter.updateList(it,true)
+            }
+
         }
 
         userListViewModel.showProgress.observe(viewLifecycleOwner) { isLoading ->
@@ -104,6 +112,7 @@ class UserListFragment : BaseFragment(), UserListAdapter.OnUserInfoClicked, Base
         (activity as AppCompatActivity).supportActionBar?.hide()
         setRecyclerAdapter()
         setScrollListener()
+        setsearchListner()
         observeViewModelLiveData()
         checkLocationPermissions()
         return binding.root
@@ -214,6 +223,23 @@ class UserListFragment : BaseFragment(), UserListAdapter.OnUserInfoClicked, Base
                     }
             }
         })
+    }
+
+    private fun setsearchListner() {
+      binding.searchView.setOnQueryTextListener(object: androidx.appcompat.widget.SearchView.OnQueryTextListener {
+          override fun onQueryTextSubmit(query: String?): Boolean {
+              userListAdapter.filter.filter(query)
+              Log.e("Submit",query?:"")
+              return false
+          }
+
+          override fun onQueryTextChange(newText: String?): Boolean {
+              Log.e("Change",newText?:"")
+              userListAdapter.filter.filter(newText)
+              return false
+          }
+
+      } )
     }
 
     private fun getLastVisibleItem(lastVisibleItemPositions: IntArray): Int {
