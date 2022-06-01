@@ -22,6 +22,9 @@ class UserListViewModel @Inject constructor(
     private val userInfoUseCase: UserInfoUseCase
 ): BaseViewModel() {
 
+    init {
+        getUserInfoList(true)
+    }
 
     val toolbarData = MutableLiveData<ToolbarData>()
     val userInfoList =  MutableLiveData<List<UserInfoData>>()

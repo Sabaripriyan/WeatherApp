@@ -105,7 +105,6 @@ class UserListFragment : BaseFragment(), UserListAdapter.OnUserInfoClicked, Base
         setRecyclerAdapter()
         setScrollListener()
         observeViewModelLiveData()
-        userListViewModel.getUserInfoList(true)
         checkLocationPermissions()
         return binding.root
     }
