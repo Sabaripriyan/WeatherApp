@@ -75,10 +75,10 @@ class UserListAdapter(private val userListViewModel: UserListViewModel,
     }
 
     fun updateList(list: List<UserInfoData?>, isFirst: Boolean){
-        if(isFirst)
-            userInfoList.addAll(list)
+        userInfoList.addAll(list)
         userInfoFullList.addAll(list)
         notifyDataSetChanged()
+        notifyItemInserted(userInfoList.lastIndex)
     }
 
     fun addProgress(){

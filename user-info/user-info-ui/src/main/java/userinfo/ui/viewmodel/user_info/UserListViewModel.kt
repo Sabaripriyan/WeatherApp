@@ -52,7 +52,6 @@ class UserListViewModel @Inject constructor(
         when(it){
             is Result.OnSuccess -> {
                 userInfoList.postValue(it.data.results?: emptyList())
-                isLoading = false
             }
 
             is Result.OnError -> {

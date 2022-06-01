@@ -79,6 +79,7 @@ class UserListFragment : BaseFragment(), UserListAdapter.OnUserInfoClicked, Base
             else {
                 userListAdapter.updateList(it,true)
             }
+            userListViewModel.isLoading = false
 
         }
 
