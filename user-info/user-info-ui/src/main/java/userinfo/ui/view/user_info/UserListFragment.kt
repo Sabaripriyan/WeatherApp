@@ -32,7 +32,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import core.ViewModelDelegate
-import core.custom_views.CustomSearchView
 import core.extensions.showAlert
 import core.kotlin.constants.Constants.USER_INFO
 import core.kotlin.constants.Constants.USER_LIST_VISIBLE_THRESHOLD
